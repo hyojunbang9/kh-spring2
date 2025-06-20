@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kh.mapper.MemberDAO">
+	<!-- namespace => 하단 id들이 MemberDAO의 추상 메소드라고 정의함(?) -->
+	<!-- 원래는 <insert id="insert" parameterType="com.kh.domain.MybatisMember"> -->
+	<insert id="insert">
+		INSERT INTO MYBATISMEMBER(no, title, content, writer)
+		VALUES (MYBATISMEMBER_SEQ.NEXTVAL, #{title}, #{content}, #{writer})<!-- #{}는 사실 getters 였음 -->
+	</insert>
+	<select id="select" resultType="com.kh.domain.MybatisMember">
+		SELECT no, title, content,
+		writer, reg_date FROM MYBATISMEMBER WHERE no =
+		#{no}
+	</select>
+	<update id="update">
+		UPDATE MYBATISMEMBER SET title = #{title}, writer =
+		#{writer}, content =
+		#{content} WHERE no =
+		#{no}
+	</update>
+	<delete id="delete">
+		delete from MYBATISMEMBER WHERE no = #{no}
+	</delete>
+	<select id="selectAll" resultType="com.kh.domain.MybatisMember">
+    <![CDATA[
+        SELECT no, title, content, writer, reg_date
+        FROM MYBATISMEMBER
+        WHERE no > 0 ORDER BY NO DESC, reg_date DESC
+        ]]>
+	</select>
+</mapper>
