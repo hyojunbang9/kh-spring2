@@ -26,7 +26,7 @@
 						<td align="left"><a href="/member/read?no=${member.no}">${member.no}</a></td>
 						<td align="center">${member.name}</td>
 						<td align="right">${member.id}</td>
-						<td align="right">${member.pwd}</td>
+						<td align="right">${member.pw}</td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>

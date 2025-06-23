@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.kh</groupId>
-	<artifactId>SpringMyBatisJoinMember</artifactId>
+	<artifactId>SpringProjectAOP</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>SpringMyBatisJoinMember</name>
+	<name>SpringProjectAOP</name>
 	<description>Demo project for Spring Boot</description>
 	<url />
 	<licenses>
@@ -88,10 +88,12 @@
 			<groupId>jakarta.servlet.jsp.jstl</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 		</dependency>
+		<!-- AOP를 위한 라이브러리 의존 관계 정의 -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring- 
+boot-starter-aop -->
 		<dependency>
-			<groupId>com.kh</groupId>
-			<artifactId>SpringProjectAOP</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 	</dependencies>
 

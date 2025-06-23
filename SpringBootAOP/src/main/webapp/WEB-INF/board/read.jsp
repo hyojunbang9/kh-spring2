@@ -1,22 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@ include file="./header.jsp"%>
 
 <main>
 	<h2>READ</h2>
-	<form:form modelAttribute="member">
+	<form:form modelAttribute="board">
 		<form:hidden path="no" />
 		<table>
 			<tr>
-				<td>NAME</td>
-				<td><form:input path="name" readonly="true" /></td>
+				<td>Title</td>
+				<td><form:input path="title" readonly="true" /></td>
 			</tr>
 			<tr>
-				<td>ID</td>
-				<td><form:input path="id" readonly="true" /></td>
+				<td>Writer</td>
+				<td><form:input path="writer" readonly="true" /></td>
 			</tr>
 			<tr>
-				<td>PW</td>
-				<td><form:password path="pwd" readonly="true" /></td>
+				<td>Content</td>
+				<td><form:textarea path="content" readonly="true" /></td>
 			</tr>
 		</table>
 	</form:form>
@@ -26,24 +27,25 @@
 		<button type="submit" id="btnList">List</button>
 	</div>
 </main>
+
 <%@ include file="./footer.jsp"%>
 <script>
 	$(document).ready(function() {
-		var formObj = $("#member");
+		var formObj = $("#board");
 		console.log(formObj);
 		$("#btnModify").on("click", function() {
-			var memberNo = $("#memberNo");
-			var memberNoVal = memberNo.val();
-			/* http://~:8080//member/modify?memberNo=1 */
-			self.location = "/member/modify?no=" + memberNoVal;
+			var boardNo = $("#no");
+			var boardNoVal = boardNo.val();
+			/* http://~:8080//board/modify?boardNo=1 */
+			self.location = "/board/modify?no=" + boardNoVal;
 		});
 		$("#btnRemove").on("click", function() {
-			formObj.attr("action", "/member/remove");
+			formObj.attr("action", "/board/remove");
 			formObj.submit();
 		});
 		$("#btnList").on("click", function() {
-			/* http://~:8080/member/list */
-			self.location = "/member/list";
+			/* http://~:8080/board/list */
+			self.location = "/board/list";
 		});
 	});
 </script>
