@@ -19,16 +19,21 @@ public class LoginController {
 
 		// DB연동(Mapper인터페이스를 통해서!) => 다형성 구현을 이용
 
-		// DB연동을 통해 받은 리턴 값을 화면에 전달(4가지-view resolver, redirect, forward, responsBody:json)
+		// DB연동을 통해 받은 리턴 값을 화면에 전달(4가지-view resolver, redirect, forward,
+		// responsBody:json)
 		return "login/loginForm";
 	}
 
 	@PostMapping("/login")
-	public String login(Member member, Model model) {
+	public void login(Member member, Model model) {
 		log.info("LoginController login start");
 		log.info("login userId = " + member.getUserId());
 		log.info("login userPw = " + member.getUserPw());
-		model.addAttribute("result", "로그인 되었습니다.");
-		return "login/success";
+
+		member.setUserName("제우스");
+		member.setEmail("zeus@zeus.com");
+
+		model.addAttribute("user", member);
+
 	}
 }

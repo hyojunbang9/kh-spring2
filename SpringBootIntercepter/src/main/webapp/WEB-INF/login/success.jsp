@@ -5,7 +5,7 @@
 
 <main>
 	<div>
-		<h2>${msg}</h2>
+		<h2>${result}</h2>
 		<!-- <a href="/member/list">List</a> -->
 	</div>
 </main>
