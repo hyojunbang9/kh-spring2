@@ -1,5 +1,6 @@
 package com.kh.controller;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import lombok.extern.java.Log;
 
 @Log
 @Controller
+@MapperScan(basePackages = "com.kh.mapper")
 public class LoginController {
 // 에러 메시지와 로그아웃 메시지를 파라미터로 사용한다.
 	@GetMapping("/login")

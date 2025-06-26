@@ -1,17 +1,23 @@
 package com.kh.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.kh.common.security.CustomAccessDeniedHandler;
 import com.kh.common.security.CustomLoginSuccessHandler;
+import com.kh.common.security.CustomNoOpPasswordEncoder;
+import com.kh.common.security.CustomUserDetailsService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,6 +25,8 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+	@Autowired
+	DataSource dataSource;
 
 	@Bean
 	// @EnableWebSecurity랑 하단 명령어 입력 시 Seurity 기능을 수동으로 가능함!
@@ -58,11 +66,21 @@ public class SecurityConfig {
 		return http.build();
 	}
 
-	@Autowired
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// 지정된 아이디와 패스워드로 로그인이 가능하도록 설정한다.
-		auth.inMemoryAuthentication().withUser("member").password("{noop}123456").roles("MEMBER");
-		auth.inMemoryAuthentication().withUser("admin").password("{noop}123456").roles("ADMIN", "MEMBER");
+	// DB 연동을 위한 주석 처리
+//	@Autowired
+//	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		// 지정된 아이디와 패스워드로 로그인이 가능하도록 설정한다.
+//		auth.inMemoryAuthentication().withUser("member").password("{noop}123456").roles("MEMBER");
+//		auth.inMemoryAuthentication().withUser("admin").password("{noop}123456").roles("ADMIN", "MEMBER");
+//	}
+	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(createUserDetailsService()).passwordEncoder(createPasswordEncoder());
+
+	}
+
+	@Bean
+	public PasswordEncoder createPasswordEncoder() {
+		return new CustomNoOpPasswordEncoder();
 	}
 
 	// CustomAccessDeniedHandler를 빈으로 등록한다.
@@ -75,6 +93,11 @@ public class SecurityConfig {
 	@Bean
 	public AuthenticationSuccessHandler createAuthenticationSuccessHandler() {
 		return new CustomLoginSuccessHandler();
+	}
+
+	@Bean
+	public UserDetailsService createUserDetailsService() {
+		return new CustomUserDetailsService();
 	}
 
 }
