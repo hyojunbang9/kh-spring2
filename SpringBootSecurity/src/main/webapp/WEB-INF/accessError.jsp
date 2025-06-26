@@ -9,8 +9,6 @@
 </head>
 <body>
 	<h3>접근 불가</h3>
-	<h2>
-		<c:out value="${msg}" />
-	</h2>
+	<h2>${msg}</h2>
 </body>
 </html>
