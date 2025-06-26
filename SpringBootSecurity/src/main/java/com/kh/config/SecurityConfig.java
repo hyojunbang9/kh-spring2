@@ -8,8 +8,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.kh.common.security.CustomAccessDeniedHandler;
+import com.kh.common.security.CustomLoginSuccessHandler;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,7 +43,17 @@ public class SecurityConfig {
 		http.exceptionHandling().accessDeniedHandler(createAccessDeniedHandler());
 
 		// 인증 정책
-		http.formLogin();
+//		http.formLogin();
+		// 개발자가 정의한 로그인 페이지의 URI를 지정한다.
+		http.formLogin().loginPage("/login");
+
+		// 개발자가 정의한 로그인 페이지의 URI를 지정한다.
+		// 로그인 성공 후 처리를 담당하는 처리자로 지정한다.
+		// 사용자 정보 세팅 완료 후, 인증/인가 설정 : VO => User 처리를 담당하는 처리자로..
+		http.formLogin().loginPage("/login").successHandler(createAuthenticationSuccessHandler());
+
+		// 로그아웃 처리를 위한 URI를 지정하고, 로그아웃한 후에 세션을 무효화 한다.
+		http.logout().logoutUrl("/logout").invalidateHttpSession(true);
 
 		return http.build();
 	}
@@ -58,4 +70,11 @@ public class SecurityConfig {
 	public AccessDeniedHandler createAccessDeniedHandler() {
 		return new CustomAccessDeniedHandler();
 	}
+
+	// CustomLoginSuccessHandler를 빈으로 등록한다.
+	@Bean
+	public AuthenticationSuccessHandler createAuthenticationSuccessHandler() {
+		return new CustomLoginSuccessHandler();
+	}
+
 }
