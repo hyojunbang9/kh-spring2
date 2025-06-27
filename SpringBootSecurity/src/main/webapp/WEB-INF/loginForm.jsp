@@ -11,6 +11,7 @@
 </head>
 <body>
 	<h1>로그인</h1>
+	<a href="/">HOME</a>
 	<h2>
 		<c:out value="${error}" />
 	</h2>
@@ -27,6 +28,11 @@
 		<div>
 			<input type="submit">
 		</div>
+		<!-- 로그인 상태유지 체크박스 -->
+		<div>
+			<input type="checkbox" name="remember-me"> 로그인 상태유지
+		</div>
+
 		<sec:csrfInput />
 	</form>
 </body>

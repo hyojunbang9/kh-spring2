@@ -40,11 +40,17 @@ public class MemberDAOServiceImlp implements MemberDAOService {
 		memberDAO.insertAuth(memberAuth);
 	}
 
-	// 회원 정보 전체 출력
 	@Override
+	// 회원 정보 전체 출력
 	public List<Member> selectAll() throws Exception {
 
 		return memberDAO.selectAll();
+	}
+	
+	@Override
+	// 회원 정보 검색(by id)
+	public Member selectOn(Member member) throws Exception {
+		return memberDAO.selectOn(member);
 	}
 
 	// 회원 정보 및 권한 출력(회원&권한 조인)

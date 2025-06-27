@@ -16,6 +16,9 @@ public interface MemberDAOService {
 	// 회원 정보 전체 출력
 	public List<Member> selectAll() throws Exception;
 
+	// 회원 정보 전체 출력
+	public Member selectOn(Member member) throws Exception;
+
 	// 회원 정보 및 권한 출력(회원&권한 조인)
 	public Member selectJoin(Member member) throws Exception;
 
